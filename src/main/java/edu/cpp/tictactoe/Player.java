@@ -1,5 +1,9 @@
+/**
+ * Indicates the guideline for creating a player.
+ */
+
 package edu.cpp.tictactoe;
 
-public class Player
+abstract class Player
 {
 }

@@ -1,5 +1,8 @@
+/**
+ * Options: X, O, EMPTY
+ */
 package edu.cpp.tictactoe;
 
-public class Mark
+public enum Mark
 {
 }
