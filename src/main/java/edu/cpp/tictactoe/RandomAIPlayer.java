@@ -7,4 +7,9 @@ package edu.cpp.tictactoe;
 
 public class RandomAIPlayer
 {
+    final Mark mark =Mark.EMPTY;
+
+    public Move nextMove(Board board){
+
+    }
 }

@@ -3,6 +3,8 @@
  */
 package edu.cpp.tictactoe;
 
-public enum Mark
-{
+public enum Mark {
+    X,
+    O,
+    EMPTY
 }
