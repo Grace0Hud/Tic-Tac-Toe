@@ -4,7 +4,7 @@
 package edu.cpp.tictactoe;
 
 public enum Mark {
-    X,
-    O,
-    EMPTY
+    X, O, EMPTY;
+
+
 }
