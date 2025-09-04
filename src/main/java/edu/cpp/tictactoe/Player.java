@@ -6,11 +6,17 @@ package edu.cpp.tictactoe;
 
 abstract class Player
 {
-    final Mark mark;
+    protected final String name;
+    protected final Mark mark;
 
-    public abstract Move nextMove(Board board){
-
+    protected Player(String name, Mark mark){
+        this.name = name;
+        this.mark = mark;
     }
+
+    public abstract int[] nextMove(Board board);
+
+    public String getName() { return name; }
 
     public Mark getMark() {
         return mark;

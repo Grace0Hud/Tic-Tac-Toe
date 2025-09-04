@@ -4,12 +4,19 @@
  */
 
 package edu.cpp.tictactoe;
+import java.util.*;
 
-public class RandomAIPlayer
+public class RandomAIPlayer extends Player
 {
-    final Mark mark =Mark.EMPTY;
+    private final Move strategy;
 
-    public Move nextMove(Board board){
+    public RandomAIPlayer(String name, Mark mark, Move strategy){
+        super(name, mark);
+        this.strategy = strategy;
+    }
 
+    @Override
+    public int[] nextMove(Board board) {
+        return strategy.pickMove(board, mark);
     }
 }
