@@ -15,7 +15,7 @@ public class RandomAIPlayer extends Player
     }
 
     @Override
-    public Move nextMove(Board board) {
+    public Move nextMove(Board board, int size) {
         int row, col;
 
         do {

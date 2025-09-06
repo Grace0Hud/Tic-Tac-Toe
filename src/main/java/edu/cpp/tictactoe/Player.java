@@ -20,5 +20,5 @@ abstract class Player
         return mark;
     }
 
-    public abstract Move nextMove(Board board);
+    public abstract Move nextMove(Board board,int size);
 }

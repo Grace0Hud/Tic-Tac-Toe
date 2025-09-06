@@ -10,25 +10,29 @@
 * -placing */
 package edu.cpp.tictactoe;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class Board
 {
     private int size = 3;
     private final Mark[][] grid;
     private int moves = 0;
-    private final Stack<Move> moveHistory = new Stack<>();
+
+    private final Deque<Move> moveHistory = new ArrayDeque<>();
 
 /* set all board values to EMPTY*/
     public Board(){
-        reset();
+
         grid = new Mark[size][size];
+        reset();
     }
 
     public Board(int size){
-        reset();
+
         this.size = size;
         grid = new Mark[size][size];
+        reset();
     }
 
     public int getSize() {
@@ -43,27 +47,60 @@ public class Board
     /* Checks if all grid Values are not EMPTY*/
     public boolean isFull(){ return moves == (size*size); }
 
-    public boolean place (int r, int c, Mark mark){
+    public boolean place (int r, int c, Mark mark, Player current){
         if (!isEmpty(r, c)) return false;
         grid[r][c] = mark;
         moves++;
-        moveHistory.push(new Move(r, c, mark));
+        if(current.getName().equals("You")){
+            moveHistory.push(new Move(r, c, mark));
+        }
         return true;
     }
 
     /* Decision Tree*/
     public Mark winner(){
         for (int i = 0; i < size; i++) {
-            if (line(grid[i][0], grid[i][1], grid[i][2])) return grid[i][0];
-            if (line(grid[0][i], grid[1][i], grid[2][i])) return grid[0][i];
+            if (line(grid[i])) return grid[i][0];
+            if (lineColumn(i)) return grid[0][i];
         }
-        if (line(grid[0][0], grid[1][1], grid[2][2])) return grid[0][0];
-        if (line(grid[0][2], grid[1][1], grid[2][0])) return grid[0][2];
+        if (lineDiagonal()) return grid[0][0];
+        if (lineAntiDiagonal()) return grid[0][size - 1];
         return Mark.EMPTY;
     }
 
-    private boolean line(Mark a, Mark b, Mark c) {
-        return a != Mark.EMPTY && a == b && b == c;
+    private boolean line(Mark[] row) {
+        Mark first = row[0];
+        if (first == Mark.EMPTY) return false;
+        for (Mark m : row) {
+            if (m != first) return false;
+        }
+        return true;
+    }
+
+    private boolean lineColumn(int col) {
+        Mark first = grid[0][col];
+        if (first == Mark.EMPTY) return false;
+        for (int r = 0; r < size; r++) {
+            if (grid[r][col] != first) return false;
+        }
+        return true;
+    }
+
+    private boolean lineDiagonal() {
+        Mark first = grid[0][0];
+        if (first == Mark.EMPTY) return false;
+        for (int i = 0; i < size; i++) {
+            if (grid[i][i] != first) return false;
+        }
+        return true;
+    }
+    private boolean lineAntiDiagonal() {
+        Mark first = grid[0][size - 1];
+        if (first == Mark.EMPTY) return false;
+        for (int i = 0; i < size; i++) {
+            if (grid[i][size - 1 - i] != first) return false;
+        }
+        return true;
     }
 
     public void print() {
@@ -102,7 +139,14 @@ public class Board
     * setting value to "empty"
     * */
 
-    public void undoMove(){
-
+    public void undoMove() {
+        if (!moveHistory.isEmpty()) {
+            Move last = moveHistory.pop();
+            grid[last.getRow()][last.getCol()] = Mark.EMPTY;
+            moves--;
+            print();
+        } else {
+            System.out.println("No moves to undo!");
+        }
     }
 }
