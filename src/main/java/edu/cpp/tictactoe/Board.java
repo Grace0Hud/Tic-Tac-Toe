@@ -18,16 +18,24 @@ public class Board
     private int size = 3;
     private final Mark[][] grid;
     private int moves = 0;
-
     private final Deque<Move> moveHistory = new ArrayDeque<>();
 
-/* set all board values to EMPTY*/
-    public Board(){
 
+    /**
+     * Default constructor to create a Board instance
+     * with a grid size of three
+     * sets all board mark values to EMPTY
+     */
+    public Board(){
         grid = new Mark[size][size];
         reset();
     }
-
+    /**
+     * Constructor to create a Board instance.
+     * Creates a grid of the correct size and
+     * sets all board mark values to EMPTY
+     * @param size the number of rows and columns in the board.
+     */
     public Board(int size){
 
         this.size = size;
@@ -35,8 +43,29 @@ public class Board
         reset();
     }
 
+    /**
+     * @return size of the board's grid.
+     */
     public int getSize() {
         return size;
+    }
+
+    /**
+     * Set the size of the board.
+     * @param size the size to set the board to.
+     */
+    public void setSize(int size)
+    {
+        this.size = size;
+    }
+    /**
+     *  gets mark from the given cell
+     * @param r row of the cell
+     * @param c column of the cell
+     * @return the value at the specified row and column of the grid
+     *  */
+    public Mark getCell(int r, int c){
+        return grid [r][c];
     }
 
     public boolean isEmpty(int r, int c) {
@@ -44,7 +73,10 @@ public class Board
         return grid[r][c] == Mark.EMPTY;
     }
 
-    /* Checks if all grid Values are not EMPTY*/
+    /**
+     * Checks if all grid Values are not EMPTY
+     * @return If the number of moves has filled the board grid.
+     * */
     public boolean isFull(){ return moves == (size*size); }
 
     public boolean place (int r, int c, Mark mark, Player current){
@@ -106,12 +138,9 @@ public class Board
         System.out.println(toString());
     }
 
-    /* gets mark from the given cell*/
-    public Mark getCell(int r, int c){
-        return grid [r][c];
-    }
-
-    /* set all the values in grid to Empty*/
+    /**
+     *  set all the values in grid to Empty
+     *  */
     public void reset(){
 
         for (Mark[] row : grid) {
@@ -121,12 +150,12 @@ public class Board
         moveHistory.clear();
     }
 
-    /* get last move and reverse
-    * Store moves in stack
-    * using pop get last r and c value
-    * setting value to "empty"
+    /**
+     * get last move and reverse
+     * Store moves in stack
+     * using pop get last r and c value
+     * setting value to "empty"
     * */
-
     public void undoMove() {
         if (!moveHistory.isEmpty()) {
             Move last = moveHistory.pop();
@@ -138,6 +167,10 @@ public class Board
         }
     }
 
+    /**
+     * Organizes the board into a visual form.
+     * @return output the organized string output of the grid.
+     */
     public String toString()
     {
         String output = "";
