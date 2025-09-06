@@ -11,6 +11,17 @@ class BoardTest
 {
     private Board defaultBoard;
     private Player player1;
+
+    private void fillBoard()
+    {
+	  for (int i = 0; i < defaultBoard.getSize(); i++)
+	  {
+		for(int j = 0; j < defaultBoard.getSize(); j++)
+		{
+		    defaultBoard.place(i,j,player1);
+		}
+	  }
+    }
     @BeforeEach
     void setUp()
     {
@@ -68,13 +79,7 @@ class BoardTest
     @Test
     void isFullTest()
     {
-	  for (int i = 0; i < defaultBoard.getSize(); i++)
-	  {
-		for(int j = 0; j < defaultBoard.getSize(); j++)
-		{
-		    defaultBoard.place(i,j,player1);
-		}
-	  }
+	  fillBoard();
 	  assertTrue(defaultBoard.isFull());
 	  defaultBoard.undoMove();
 	  assertFalse(defaultBoard.isFull());
@@ -133,13 +138,7 @@ class BoardTest
     @Test
     void boardResetTest()
     {
-	  for (int i = 0; i < defaultBoard.getSize(); i++)
-	  {
-		for(int j = 0; j < defaultBoard.getSize(); j++)
-		{
-		    defaultBoard.place(i,j,player1);
-		}
-	  }
+	  fillBoard();
 	  defaultBoard.reset();
 	  for (int i = 0; i < defaultBoard.getSize(); i++)
 	  {
@@ -148,5 +147,14 @@ class BoardTest
 		    assertEquals(Mark.EMPTY, defaultBoard.getCell(i,j));
 		}
 	  }
+    }
+
+    @Test
+    void noMarkFullCellTest()
+    {
+	fillBoard();
+	Player player2 = new HumanPlayer("me", Mark.O, new Scanner(System.in));
+	assertFalse(defaultBoard.place(1,2,player2));
+	assertNotEquals(Mark.O, defaultBoard.getCell(1,2));
     }
 } //end BoardTest class.
