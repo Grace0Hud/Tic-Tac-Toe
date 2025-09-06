@@ -68,9 +68,32 @@ public class Board
         return grid [r][c];
     }
 
+    /**
+     * Checks if a specified cell has an empty value
+     * @param r the row of the cell
+     * @param c the column of the cell
+     * @return if the cell is empty or not.
+     */
     public boolean isEmpty(int r, int c) {
         if (r < 0 || r >= size || c < 0 || c >= size) return false;
         return grid[r][c] == Mark.EMPTY;
+    }
+
+    /**
+     * Places a mark at the specified cell of the board grid
+     * @param r the row of the cell
+     * @param c the column of the cell
+     * @param current the current player (the one placing the mark).
+     * @return if the mark was placed successfully.
+     */
+    public boolean place (int r, int c, Player current){
+        if (!isEmpty(r, c)) return false;
+        grid[r][c] = current.getMark();
+        moves++;
+        if(current.getName().equals("You")){
+            moveHistory.push(new Move(r, c, current.getMark()));
+        }
+        return true;
     }
 
     /**
@@ -78,16 +101,6 @@ public class Board
      * @return If the number of moves has filled the board grid.
      * */
     public boolean isFull(){ return moves == (size*size); }
-
-    public boolean place (int r, int c, Mark mark, Player current){
-        if (!isEmpty(r, c)) return false;
-        grid[r][c] = mark;
-        moves++;
-        if(current.getName().equals("You")){
-            moveHistory.push(new Move(r, c, mark));
-        }
-        return true;
-    }
 
     /* Decision Tree*/
     public Mark winner(){

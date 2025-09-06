@@ -28,7 +28,7 @@ public class Game
         while (true) {
             board.print();
             Move move = current.nextMove(board,size); // polymorphism!
-            board.place(move.getRow(), move.getCol(), current.getMark(), current);
+            board.place(move.getRow(), move.getCol(), current);
             if (board.winner() != Mark.EMPTY) {
                 board.print();
                 System.out.println("Winner: " + current.getName());
