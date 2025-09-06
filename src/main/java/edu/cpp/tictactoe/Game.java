@@ -7,7 +7,7 @@ public class Game
 {
     private final Player playerOne;
     private final Player playerTwo;
-    private finalBoard board= new Board();;
+    private final Board board = new Board();;
 
     Game (Player playerOne, Player playerTwo){
         this.playerOne = playerOne;
@@ -18,11 +18,11 @@ public class Game
         Player current = playerOne;
         while (true) {
             board.print();
-            int[] move = current.chooseMove(board); // polymorphism!
-            board.place(move[0], move[1], current.mark());
+            Move move = current.nextMove(board); // polymorphism!
+            board.place(move.getRow(), move.getCol(), current.getMark());
             if (board.winner() != Mark.EMPTY) {
                 board.print();
-                System.out.println("Winner: " + current.name());
+                System.out.println("Winner: " + current.getName());
                 break;
             }
             if (board.isFull()) {

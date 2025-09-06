@@ -14,11 +14,11 @@ abstract class Player
         this.mark = mark;
     }
 
-    public abstract int[] nextMove(Board board);
-
     public String getName() { return name; }
 
     public Mark getMark() {
         return mark;
     }
+
+    public abstract Move nextMove(Board board);
 }

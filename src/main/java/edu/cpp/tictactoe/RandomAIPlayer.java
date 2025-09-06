@@ -8,15 +8,21 @@ import java.util.*;
 
 public class RandomAIPlayer extends Player
 {
-    private final Move strategy;
+    private final Random random = new Random();
 
-    public RandomAIPlayer(String name, Mark mark, Move strategy){
-        super(name, mark);
-        this.strategy = strategy;
+    public RandomAIPlayer(String name, Mark mark){
+        super(name,mark);
     }
 
     @Override
-    public int[] nextMove(Board board) {
-        return strategy.pickMove(board, mark);
+    public Move nextMove(Board board) {
+        int row, col;
+
+        do {
+            row = random.nextInt(board.getSize());
+            col = random.nextInt(board.getSize());
+        } while (!board.isEmpty(row, col));
+
+        return new Move(row, col, this.mark);
     }
 }

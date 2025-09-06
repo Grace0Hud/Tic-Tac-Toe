@@ -11,14 +11,26 @@ public class Move
     int col ;
     Mark mark ;
 
-    public void setMark(Mark mark) {
+    public Move (int row,int col, Mark mark){
+        this.row = row;
+        this.col = col;
         this.mark = mark;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setMark(Mark mark) {
+            this.mark = mark;
     }
 
     public Mark getMark() {
         return mark;
     }
-    private void validate(int row, int col){
 
-    }
 }
