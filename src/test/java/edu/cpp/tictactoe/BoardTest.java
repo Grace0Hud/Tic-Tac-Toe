@@ -63,4 +63,19 @@ class BoardTest
 	  Move expectedMove = new Move(1, 2, Mark.X);
 	  assertEquals(expectedMove, defaultBoard.getLastMove());
     }
+
+    @Test
+    void isFullTest()
+    {
+	  Board defaultBoard = new Board();
+	  Player player1 = new HumanPlayer("You", Mark.X, new Scanner(System.in));
+	  for (int i = 0; i < defaultBoard.getSize(); i++)
+	  {
+		for(int j = 0; j < defaultBoard.getSize(); j++)
+		{
+		    defaultBoard.place(i,j,player1);
+		}
+	  }
+	  assertTrue(defaultBoard.isFull());
+    }
 }

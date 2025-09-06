@@ -140,6 +140,11 @@ public class Board
         return Mark.EMPTY;
     }
 
+    /**
+     * Checks for a win through a row.
+     * @param row to check for a line through
+     * @return if there is a win of a line.
+     */
     private boolean line(Mark[] row) {
         Mark first = row[0];
         if (first == Mark.EMPTY) return false;
@@ -149,6 +154,11 @@ public class Board
         return true;
     }
 
+    /**
+     * Checks for a win through a column.
+     * @param col to check for a line through.
+     * @return if there is a win through a column.
+     */
     private boolean lineColumn(int col) {
         Mark first = grid[0][col];
         if (first == Mark.EMPTY) return false;
@@ -158,6 +168,10 @@ public class Board
         return true;
     }
 
+    /**
+     * Checks for a win through a diagonal left-right
+     * @return if there is a win.
+     */
     private boolean lineDiagonal() {
         Mark first = grid[0][0];
         if (first == Mark.EMPTY) return false;
@@ -166,6 +180,11 @@ public class Board
         }
         return true;
     }
+
+    /**
+     * Checks for a win through a diagonal right-left
+     * @return if there is a win.
+     */
     private boolean lineAntiDiagonal() {
         Mark first = grid[0][size - 1];
         if (first == Mark.EMPTY) return false;
@@ -174,6 +193,10 @@ public class Board
         }
         return true;
     }
+
+    /**
+     * prints out the to string to the console.
+     */
     public void print() {
         System.out.println(toString());
     }
