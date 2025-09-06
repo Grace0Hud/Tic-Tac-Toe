@@ -49,4 +49,18 @@ class BoardTest
 	  Move expectedMove = new Move(1, 2, Mark.X);
 	  assertEquals(expectedMove, defaultBoard.getLastMove());
     }
+
+    @Test
+    void undoMoveTest()
+    {
+	  Board defaultBoard = new Board();
+	  Player player1 = new HumanPlayer("You", Mark.X, new Scanner(System.in));
+	  defaultBoard.place(1,2,player1);
+	  defaultBoard.place(2,2,player1);
+	  assertEquals(Mark.X, defaultBoard.getCell(2,2));
+	  defaultBoard.undoMove();
+	  assertTrue(defaultBoard.isEmpty(2,2));
+	  Move expectedMove = new Move(1, 2, Mark.X);
+	  assertEquals(expectedMove, defaultBoard.getLastMove());
+    }
 }
