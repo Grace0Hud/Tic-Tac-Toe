@@ -102,20 +102,8 @@ public class Board
         }
         return true;
     }
-
     public void print() {
-        for (int r = 0; r < size; r++) {
-            for (int c = 0; c < size; c++) {
-                System.out.print(" " + grid[r][c]);
-                if (c < size - 1) System.out.print(" |");
-            }
-            System.out.println();
-            if (r < size - 1) {
-                for (int i = 0; i < size; i++) System.out.print("---" + (i < size - 1 ? "+" : ""));
-                System.out.println();
-            }
-        }
-        System.out.print("\n\n");
+        System.out.println(toString());
     }
 
     /* gets mark from the given cell*/
@@ -148,5 +136,23 @@ public class Board
         } else {
             System.out.println("No moves to undo!");
         }
+    }
+
+    public String toString()
+    {
+        String output = "";
+        for (int r = 0; r < size; r++) {
+            for (int c = 0; c < size; c++) {
+                output += " " + grid[r][c];
+                if (c < size - 1) output += (" |");
+            }
+            output += "\n";
+            if (r < size - 1) {
+                for (int i = 0; i < size; i++) output += "---" + (i < size - 1 ? "+" : "");
+                output += "\n";
+            }
+        }
+        output += "\n\n";
+        return output;
     }
 }
