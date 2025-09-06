@@ -102,6 +102,7 @@ public class Board
     {
         return moveHistory.getLast();
     }
+
     /**
      * get last move and reverse
      * Store moves in stack
@@ -212,8 +213,6 @@ public class Board
         moves= 0;
         moveHistory.clear();
     }
-
-
 
     /**
      * Organizes the board into a visual form.

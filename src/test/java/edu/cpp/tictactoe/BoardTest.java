@@ -129,4 +129,24 @@ class BoardTest
 	  defaultBoard.place(0,2,player1);
 	  assertEquals(Mark.EMPTY, defaultBoard.winner());
     }
+
+    @Test
+    void boardResetTest()
+    {
+	  for (int i = 0; i < defaultBoard.getSize(); i++)
+	  {
+		for(int j = 0; j < defaultBoard.getSize(); j++)
+		{
+		    defaultBoard.place(i,j,player1);
+		}
+	  }
+	  defaultBoard.reset();
+	  for (int i = 0; i < defaultBoard.getSize(); i++)
+	  {
+		for(int j = 0; j < defaultBoard.getSize(); j++)
+		{
+		    assertEquals(Mark.EMPTY, defaultBoard.getCell(i,j));
+		}
+	  }
+    }
 } //end BoardTest class.
