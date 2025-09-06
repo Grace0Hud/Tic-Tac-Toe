@@ -10,33 +10,50 @@
 * -placing */
 package edu.cpp.tictactoe;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Board
 {
-    private final int size = 3;
-    private final Mark[][] grid = new Mark[size][size];
-    private int moves =0;
+    private int size = 3;
+    private final Mark[][] grid;
+    private int moves = 0;
+    private final Stack<Move> moveHistory = new Stack<>();
 
 /* set all board values to EMPTY*/
-    private void Board(){
+    public Board(){
         reset();
+        grid = new Mark[size][size];
     }
 
-    public boolean isEmpty(int r, int c) { return grid[r][c] == Mark.EMPTY; }
+    public Board(int size){
+        reset();
+        this.size = size;
+        grid = new Mark[size][size];
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public boolean isEmpty(int r, int c) {
+        if (r < 0 || r >= size || c < 0 || c >= size) return false;
+        return grid[r][c] == Mark.EMPTY;
+    }
 
     /* Checks if all grid Values are not EMPTY*/
-    public boolean isFull(){ return moves == 9; }
+    public boolean isFull(){ return moves == (size*size); }
 
     public boolean place (int r, int c, Mark mark){
         if (!isEmpty(r, c)) return false;
         grid[r][c] = mark;
         moves++;
+        moveHistory.push(new Move(r, c, mark));
         return true;
     }
 
     /* Decision Tree*/
     public Mark winner(){
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < size; i++) {
             if (line(grid[i][0], grid[i][1], grid[i][2])) return grid[i][0];
             if (line(grid[0][i], grid[1][i], grid[2][i])) return grid[0][i];
         }
@@ -50,11 +67,18 @@ public class Board
     }
 
     public void print() {
-        for (int r = 0; r < 3; r++) {
-            System.out.printf(" %s | %s | %s %n", grid[r][0], grid[r][1],
-                    grid[r][2]);
-            if (r < 2) System.out.println("---+---+---");
+        for (int r = 0; r < size; r++) {
+            for (int c = 0; c < size; c++) {
+                System.out.print(" " + grid[r][c]);
+                if (c < size - 1) System.out.print(" |");
+            }
+            System.out.println();
+            if (r < size - 1) {
+                for (int i = 0; i < size; i++) System.out.print("---" + (i < size - 1 ? "+" : ""));
+                System.out.println();
+            }
         }
+        System.out.print("\n\n");
     }
 
     /* gets mark from the given cell*/
@@ -64,7 +88,12 @@ public class Board
 
     /* set all the values in grid to Empty*/
     public void reset(){
-        for (Mark[] row : grid) Arrays.fill(row,Mark.EMPTY);
+
+        for (Mark[] row : grid) {
+            Arrays.fill(row,Mark.EMPTY);
+        }
+        moves= 0;
+        moveHistory.clear();
     }
 
     /* get last move and reverse
