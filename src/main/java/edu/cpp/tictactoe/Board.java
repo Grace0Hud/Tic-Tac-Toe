@@ -20,7 +20,6 @@ public class Board
     private int moves = 0;
     private final Deque<Move> moveHistory = new ArrayDeque<>();
 
-
     /**
      * Default constructor to create a Board instance
      * with a grid size of three
@@ -97,12 +96,40 @@ public class Board
     }
 
     /**
+     * @return the last move logged.
+     */
+    public Move getLastMove()
+    {
+        return moveHistory.getLast();
+    }
+    /**
+     * get last move and reverse
+     * Store moves in stack
+     * using pop get last r and c value
+     * setting value to "empty"
+     * */
+    public void undoMove() {
+        if (!moveHistory.isEmpty()) {
+            Move last = moveHistory.pop();
+            grid[last.getRow()][last.getCol()] = Mark.EMPTY;
+            moves--;
+            print();
+        } else {
+            System.out.println("No moves to undo!");
+        }
+    }
+
+    /**
      * Checks if all grid Values are not EMPTY
      * @return If the number of moves has filled the board grid.
      * */
     public boolean isFull(){ return moves == (size*size); }
 
-    /* Decision Tree*/
+    /**
+     * Decision tree for checking if a player has won
+     * @return the starting cell of the winning streak, or empty
+     * if there is no winner.
+     */
     public Mark winner(){
         for (int i = 0; i < size; i++) {
             if (line(grid[i])) return grid[i][0];
@@ -163,22 +190,7 @@ public class Board
         moveHistory.clear();
     }
 
-    /**
-     * get last move and reverse
-     * Store moves in stack
-     * using pop get last r and c value
-     * setting value to "empty"
-    * */
-    public void undoMove() {
-        if (!moveHistory.isEmpty()) {
-            Move last = moveHistory.pop();
-            grid[last.getRow()][last.getCol()] = Mark.EMPTY;
-            moves--;
-            print();
-        } else {
-            System.out.println("No moves to undo!");
-        }
-    }
+
 
     /**
      * Organizes the board into a visual form.

@@ -39,4 +39,14 @@ class BoardTest
 	  defaultBoard.place(1,2,player1);
 	  assertEquals(Mark.X, defaultBoard.getCell(1,2));
     }
+
+    @Test
+    void moveHistoryTest()
+    {
+	  Board defaultBoard = new Board();
+	  Player player1 = new HumanPlayer("You", Mark.X, new Scanner(System.in));
+	  defaultBoard.place(1,2,player1);
+	  Move expectedMove = new Move(1, 2, Mark.X);
+	  assertEquals(expectedMove, defaultBoard.getLastMove());
+    }
 }
