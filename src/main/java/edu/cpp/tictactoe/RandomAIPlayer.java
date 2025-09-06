@@ -4,7 +4,25 @@
  */
 
 package edu.cpp.tictactoe;
+import java.util.*;
 
-public class RandomAIPlayer
+public class RandomAIPlayer extends Player
 {
+    private final Random random = new Random();
+
+    public RandomAIPlayer(String name, Mark mark){
+        super(name,mark);
+    }
+
+    @Override
+    public Move nextMove(Board board, int size) {
+        int row, col;
+
+        do {
+            row = random.nextInt(board.getSize());
+            col = random.nextInt(board.getSize());
+        } while (!board.isEmpty(row, col));
+
+        return new Move(row, col, this.mark);
+    }
 }
