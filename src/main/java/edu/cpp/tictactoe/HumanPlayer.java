@@ -18,20 +18,29 @@ public class HumanPlayer extends Player
 
     @Override
     public Move nextMove(Board board, int size){
-        while (true) {
-            System.out.print("Would you like to undo your last move, (Y or N): ");
-            String undo = input.next();
-                if(undo.equals("Y")){
-                    board.undoMove();
-                }
+        while (true)
+        {
+            System.out.println("Enter \'u\' to undo last move\nEnter \'e\' to exit the game.");
             System.out.printf("%s (%s), enter row and col [1-%s 1-%s]: ", name,
                     mark,size, size);
-            int r = input.nextInt() - 1;
-            int c = input.nextInt() - 1;
-            if (board.isEmpty(r, c)) return new Move(r, c, mark);
-            System.out.println("Invalid move, try again.");
+            String choice = input.next();
+            if(choice.charAt(0) == 'u' || choice.charAt(0) == 'U')
+            {
+                board.undoMove();
+            }else if(choice.charAt(0) == 'e' || choice.charAt(0) == 'E')
+            {
+                System.out.println("Exiting game");
+                System.exit(0);
+            }else if(Character.isDigit(choice.charAt(0)))
+            {
+                int r = Integer.parseInt(choice) - 1;
+                int c = input.nextInt() - 1;
+                if (board.isEmpty(r, c)) return new Move(r, c, mark);
+                System.out.println("Invalid move, try again.");
+            }else
+            {
+                System.out.println("Invalid input.");
+            }
         }
-
     }
-
 }

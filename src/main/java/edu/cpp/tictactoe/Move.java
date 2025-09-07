@@ -33,4 +33,20 @@ public class Move
         return mark;
     }
 
+    /**
+     * Compares two moves to check if they are the same.
+     * @param obj the object to compare two
+     * @return if the objects have the same row,col, and mark.
+     */
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(obj instanceof Move)
+        {
+            Move m = (Move)obj;
+            return (row == m.row && col == m.col && mark == m.mark);
+        }
+        return false;
+    }
+
 }
