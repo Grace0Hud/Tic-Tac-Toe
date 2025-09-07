@@ -11,24 +11,21 @@ public class Game
     private Board board;
     private final Scanner input;
 
-    public Game(Player playerOne, Player playerTwo, Scanner input) {
+    public Game(Player playerOne, Player playerTwo, Scanner input, int boardSize) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         this.input = input;
+        board = new Board(boardSize);
     }
 
     public void run(){
-
-        System.out.print("Enter Board size (3 or more): ");
-        int size = input.nextInt();
-        board = new Board(size);
         Player current = playerOne;
         while (true) {
             board.print();
             Move move;
             do
             {
-                move = current.nextMove(board, size); // polymorphism!
+                move = current.nextMove(board, board.getSize()); // polymorphism!
             }while(!board.place(move.getRow(), move.getCol(), current));
 
             if (board.winner() != Mark.EMPTY) {
