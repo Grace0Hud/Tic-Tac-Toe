@@ -22,9 +22,7 @@ public class Game
         System.out.print("Enter Board size (3 or more): ");
         int size = input.nextInt();
         board = new Board(size);
-
         Player current = playerOne;
-
         while (true) {
             board.print();
             Move move;

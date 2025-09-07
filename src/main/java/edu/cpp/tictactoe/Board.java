@@ -89,9 +89,7 @@ public class Board
         if (!isEmpty(r, c)) return false;
         grid[r][c] = current.getMark();
         moves++;
-        if(current.getName().equals("You")){
-            moveHistory.push(new Move(r, c, current.getMark()));
-        }
+        moveHistory.push(new Move(r, c, current.getMark()));
         return true;
     }
 
@@ -110,14 +108,23 @@ public class Board
      * setting value to "empty"
      * */
     public void undoMove() {
-        if (!moveHistory.isEmpty()) {
-            Move last = moveHistory.pop();
-            grid[last.getRow()][last.getCol()] = Mark.EMPTY;
-            moves--;
+        if (!moveHistory.isEmpty())
+        {
+            //undo player move.
+            undoLastMove();
+            //undo computer move.
+            undoLastMove();
             print();
         } else {
             System.out.println("No moves to undo!");
         }
+    }
+
+    private void undoLastMove()
+    {
+        Move last = moveHistory.pop();
+        grid[last.getRow()][last.getCol()] = Mark.EMPTY;
+        moves--;
     }
 
     /**
