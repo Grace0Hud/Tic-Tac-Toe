@@ -1,8 +1,10 @@
 package edu.cpp.tictactoe;
+/**
+ * Class to test the Board class for the game.
+ */
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,6 +14,9 @@ class BoardTest
     private Board defaultBoard;
     private Player player1;
 
+    /**
+     * Helper function to fill the default board for testing.
+     */
     private void fillBoard()
     {
 	  for (int i = 0; i < defaultBoard.getSize(); i++)
@@ -26,7 +31,7 @@ class BoardTest
     void setUp()
     {
 	  defaultBoard = new Board();
-	  player1 = new HumanPlayer("You", Mark.X, new Scanner(System.in));
+	  player1 = new ScriptedPlayer("Test", Mark.X, new Move(0,0,Mark.X));
     }
     @Test
     void BoardConstructorTest()
@@ -67,13 +72,18 @@ class BoardTest
     @Test
     void undoMoveTest()
     {
+	  defaultBoard.place(0,2,player1);
 	  defaultBoard.place(1,2,player1);
 	  defaultBoard.place(2,2,player1);
 	  assertEquals(Mark.X, defaultBoard.getCell(2,2));
 	  defaultBoard.undoMove();
 	  assertTrue(defaultBoard.isEmpty(2,2));
-	  Move expectedMove = new Move(1, 2, Mark.X);
+	  assertTrue(defaultBoard.isEmpty(1,2));
+	  //both the last move and the one before it should be removed.
+	  Move expectedMove = new Move(0, 2, Mark.X);
+	  //System.out.println(defaultBoard.getLastMove().toString());
 	  assertEquals(expectedMove, defaultBoard.getLastMove());
+	  defaultBoard.print();
     }
 
     @Test
@@ -128,7 +138,7 @@ class BoardTest
     @Test
     void noWinDiffMarksTest()
     {
-	  Player player2 = new HumanPlayer("me", Mark.O, new Scanner(System.in));
+	  Player player2 = new ScriptedPlayer("me", Mark.O, new Move(0,0,Mark.O));
 	  defaultBoard.place(0,0,player1);
 	  defaultBoard.place(0,1,player2);
 	  defaultBoard.place(0,2,player1);
@@ -153,7 +163,7 @@ class BoardTest
     void noMarkFullCellTest()
     {
 	fillBoard();
-	Player player2 = new HumanPlayer("me", Mark.O, new Scanner(System.in));
+	Player player2 = new ScriptedPlayer("me", Mark.O, new Move(0,0,Mark.O));
 	assertFalse(defaultBoard.place(1,2,player2));
 	assertNotEquals(Mark.O, defaultBoard.getCell(1,2));
     }

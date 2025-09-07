@@ -49,4 +49,9 @@ public class Move
         return false;
     }
 
+    public String toString()
+    {
+        return row+","+col+","+mark;
+    }
+
 }

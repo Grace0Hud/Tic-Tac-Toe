@@ -18,26 +18,37 @@ public class Game
         board = new Board(boardSize);
     }
 
+    /**
+     * Responsible for running the actions of the game.
+     * While the game is active, it gets the next move (validating it is possible)
+     * then checks if that move caused anyone to win or the board to get full.
+     * Afterward, it switches to the other player and they complete their turn.
+     */
     public void run(){
         Player current = playerOne;
         while (true) {
             board.print();
             Move move;
+            //getting next move.
             do
             {
                 move = current.nextMove(board, board.getSize()); // polymorphism!
             }while(!board.place(move.getRow(), move.getCol(), current));
 
+            //checking for win conditions
             if (board.winner() != Mark.EMPTY) {
                 board.print();
                 System.out.println("Winner: " + current.getName());
                 break;
             }
+
+            //checking if the board is full.
             if (board.isFull()) {
                 board.print();
                 System.out.println("Draw!");
                 break;
             }
+            //switching to next player. 
             current = (current == playerOne) ? playerTwo : playerOne;
         }
 

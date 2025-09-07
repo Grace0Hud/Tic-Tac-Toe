@@ -16,14 +16,23 @@ public class HumanPlayer extends Player
         this.input = input;
     }
 
+    /**
+     * Gets the next move for a human player.
+     * Validates that the input is one of the approved options.
+     * @param board The board for the current game
+     * @param size the size of the board
+     * @return the chosen move object. 
+     */
     @Override
     public Move nextMove(Board board, int size){
         while (true)
         {
+            //prompt for user input.
             System.out.println("Enter \'u\' to undo last move\nEnter \'e\' to exit the game.");
             System.out.printf("%s (%s), enter row and col [1-%s 1-%s]: ", name,
                     mark,size, size);
             String choice = input.next();
+            //Decision tree checking for undo, exit, and valid moves.
             if(choice.charAt(0) == 'u' || choice.charAt(0) == 'U')
             {
                 board.undoMove();

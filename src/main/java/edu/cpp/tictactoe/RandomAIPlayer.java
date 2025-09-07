@@ -14,6 +14,13 @@ public class RandomAIPlayer extends Player
         super(name,mark);
     }
 
+    /**
+     * Gets the next move for a computer player.
+     * Chooses a random empty row/column.
+     * @param board
+     * @param size
+     * @return the chosen move. 
+     */
     @Override
     public Move nextMove(Board board, int size) {
         int row, col;
